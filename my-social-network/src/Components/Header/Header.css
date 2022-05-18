@@ -1,0 +1,12 @@
+.header {
+  grid-area: h;
+  background-color: rgb(218, 103, 103);
+}
+
+.header__img-wrapper {
+  display: flex;
+}
+
+.header__img {
+  display: flex;
+}
