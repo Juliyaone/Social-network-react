@@ -15,6 +15,8 @@ const Navbar = () => {
           <li className='side-bar__item'><NavLink className='side-bar__link' to='/dialogs'>Messages</NavLink></li>
           <li className='side-bar__item'><NavLink className='side-bar__link' to='/news'>News</NavLink></li>
           <li className='side-bar__item'><NavLink className='side-bar__link' to='/music'>Music</NavLink></li>
+          <li className='side-bar__item'><NavLink className='side-bar__link' to='/users'>Users</NavLink></li>
+
           <li className='side-bar__item'><NavLink className='side-bar__link' to='/settings'>Settings</NavLink></li>
         </ul>
       </nav>
