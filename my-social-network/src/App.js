@@ -2,7 +2,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
 import Header from './Components/Header/Header'
 import Navbar from './Components/Navbar/Navbar';
-import Profile from './Components/Profile/Profile';
+import ProfileContainer from './Components/Profile/ProfileContainer';
 import DialogsContainer from './Components/Dialogs/DialogsContainer';
 import News from './Components/News/News';
 import Music from './Components/Music/Music';
@@ -26,7 +26,7 @@ function App() {
             <main>
               <Routes>
                   <Route path="/"/>
-                  <Route path="/profile" element={<Profile />}/>
+                  <Route path="/profile/*" element={<ProfileContainer />}/>
                   <Route path="/dialogs" element={<DialogsContainer />}/>
                   <Route path="/users" element={<UsersContainer />} />
                   <Route path="/news" element={<News />}/>

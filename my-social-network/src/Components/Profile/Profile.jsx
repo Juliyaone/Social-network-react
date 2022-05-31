@@ -4,10 +4,10 @@ import MypostsContainer from './MyPosts/MypostContainer';
 import PostAddContainer from './PostAdd/PostAddContainer';
 
 
-const Profile = () => {
+const Profile = (props) => {
   return (
     <>
-    <PostInfo />
+    <PostInfo profile={props.profile} />
     <PostAddContainer/>
   
     <div className='content-box'>
