@@ -26,7 +26,7 @@ function App() {
             <main>
               <Routes>
                   <Route path="/"/>
-                  <Route path="/profile/*" element={<ProfileContainer />}/>
+                  <Route path="/profile/:id" element={<ProfileContainer />}/>
                   <Route path="/dialogs" element={<DialogsContainer />}/>
                   <Route path="/users" element={<UsersContainer />} />
                   <Route path="/news" element={<News />}/>

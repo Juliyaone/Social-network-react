@@ -10,9 +10,7 @@ let mapStateToProps = (state) => {
 }
 
 let mapDispatchToProps = () => {
-  return {
-    
-  }
+  return {}
 }
 
 const MypostsContainer = connect(mapStateToProps, mapDispatchToProps)(Mypost);

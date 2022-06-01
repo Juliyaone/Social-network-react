@@ -5,6 +5,7 @@ import PostAddContainer from './PostAdd/PostAddContainer';
 
 
 const Profile = (props) => {
+
   return (
     <>
     <PostInfo profile={props.profile} />
