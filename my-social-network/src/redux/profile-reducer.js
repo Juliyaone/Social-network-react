@@ -43,7 +43,6 @@ export const updateNewPostTextActionCreater = (text) =>
   ({type: UPDATE_NEW_POST_TEXT, newText: text})
 
 export const setUserProfile = (profile) => {
-  console.log(profile);
   return {type: SET_USER_PROFILE, profile}
 };
 

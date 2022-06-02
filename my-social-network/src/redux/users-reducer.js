@@ -4,7 +4,7 @@ const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_COUNT_PAGE = 'SET_TOTAL_COUNT_PAGE';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
 
 let initialState = {
   users: [],
@@ -12,6 +12,7 @@ let initialState = {
   totalCount: 0,
   currentPage: 1,
   isFetching: false,
+  folowingProgress: []
 }
 
 const usersReducer = (state=initialState, action) => {
@@ -22,7 +23,7 @@ const usersReducer = (state=initialState, action) => {
 
         users: state.users.map((user) => {
           if (user.id === action.userId) {
-            return { ...user, followed: false }
+            return { ...user, followed: true }
           }
           return  user;
         })
@@ -33,7 +34,7 @@ const usersReducer = (state=initialState, action) => {
         ...state,
         users: state.users.map((user) => {
           if (user.id === action.userId) {
-            return { ...user, followed: true }
+            return { ...user, followed: false }
           }
           return  user;
         })
@@ -51,6 +52,15 @@ const usersReducer = (state=initialState, action) => {
       case TOGGLE_IS_FETCHING: 
         return { ...state, isFetching: action.isFetching }
 
+
+      case TOGGLE_IS_FOLLOWING_PROGRESS: 
+        return { ...state,
+          folowingProgress: action.isFetching
+          ? [...state.folowingProgress, action.userId]
+          : state.folowingProgress.filter(id => id != action.userId)
+        }
+
+
       default:
         return { ...state }
   }
@@ -62,6 +72,9 @@ export const setUsers = (users) => ({type: SET_USERS, users});
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
 export const setTotalCountUsers = (totalCount) => ({type: SET_TOTAL_COUNT_PAGE, totalCount});
 export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching});
+export const toggleIsFolowingProgress = (isFetching, userId) => ({ type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId});
+
+
 
 
 

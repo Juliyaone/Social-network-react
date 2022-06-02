@@ -8,8 +8,7 @@ import News from './Components/News/News';
 import Music from './Components/Music/Music';
 import Settings from './Components/Settings/Settings';
 import UsersContainer from './Components/Users/UsersContainer';
-
-
+import HeaderContainer from './Components/Header/HeaderContainer';
 
 function App() { 
 
@@ -18,7 +17,7 @@ function App() {
       <div className="app">
         <div className="container-app">
           <header className='header'>
-            <Header />
+            <HeaderContainer />
           </header>
           <aside className='side-bar'>
             <Navbar />
@@ -26,6 +25,7 @@ function App() {
             <main>
               <Routes>
                   <Route path="/"/>
+                  {/* <Route path="/profile" element={<ProfileContainer />}/> */}
                   <Route path="/profile/:id" element={<ProfileContainer />}/>
                   <Route path="/dialogs" element={<DialogsContainer />}/>
                   <Route path="/users" element={<UsersContainer />} />

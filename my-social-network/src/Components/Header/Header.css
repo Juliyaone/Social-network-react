@@ -5,8 +5,18 @@
 
 .header__img-wrapper {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header__img {
   display: flex;
+}
+
+.header__login-block a {
+  display: flex;
+  color: blue;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: sans-serif;
 }

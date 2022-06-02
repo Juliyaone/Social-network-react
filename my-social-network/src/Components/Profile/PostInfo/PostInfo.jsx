@@ -3,7 +3,9 @@ import './PostInfo.css'
 
 const PostInfo = (props) => {
 
-  if(!props.profile) {
+  console.log(props.profile.photos);
+
+  if(props.profile === null) {
     return <PreLoader/>
   }
 
@@ -12,7 +14,7 @@ const PostInfo = (props) => {
       <div>
         <img src={props.profile.photos.large} width="200px" height="200px" alt='profile-avatar'></img>
       </div>
-      <div> + Description</div>
+      <div>{props.profile}</div>
     </>
   )
 }

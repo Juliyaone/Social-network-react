@@ -3,6 +3,8 @@ import profileReducer from '../redux/profile-reducer';
 import dialogsReducer from '../redux/dialogs-reducer';
 import sidebarReducer from '../redux/sidebar-reducer';
 import usersReduser from '../redux/users-reducer';
+import authReducer from '../redux/auth-reducer';
+
 
 
 
@@ -10,7 +12,8 @@ let reducers = combineReducers({
   profilePage: profileReducer,
   dialogPage: dialogsReducer,
   sidebar: sidebarReducer,
-  usersPage: usersReduser
+  usersPage: usersReduser,
+  auth: authReducer
 });
 
 let store = createStore(reducers);

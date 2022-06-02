@@ -1,8 +1,7 @@
 import './Mypost.css';
 import Post from './Post/Post';
 
-const Myposts = ({posts}) => {
-
+const Myposts = (props) => {
   return (
     <div className='posts-box'>
       <h3>My Posts</h3>
@@ -10,8 +9,8 @@ const Myposts = ({posts}) => {
       <div>
         <h3>Posts</h3>
         <ul className='post-list'>
-          {posts.map((item) => 
-          (<Post post={item.post} likescount={item.likescount}/> ))}
+          {props.posts.map((item) => 
+          (<Post key={item.id} post={item.post} likescount={item.likescount}/> ))}
         </ul>
       </div>
     </div>

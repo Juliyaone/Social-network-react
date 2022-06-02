@@ -14,9 +14,9 @@ class ProfileContainer extends React.Component {
   
   componentDidMount () {
 
-
     let userId = this.props.router.params.id;
-    if(userId = null) {
+
+    if(userId == null) {
       userId = 2;
     }
 
@@ -50,6 +50,5 @@ function withRouter(Component) {
   return ComponentWithRouterProp;
 }
 
-const withUrlDataContainerComponent = withRouter(ProfileContainer);
 
-export default connect(mapStateToProps, {setUserProfile})(withUrlDataContainerComponent);
+export default connect(mapStateToProps, {setUserProfile})(withRouter(ProfileContainer));

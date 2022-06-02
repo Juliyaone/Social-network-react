@@ -1,6 +1,7 @@
 import React from 'react';
 import userPhoto from '../../assecs/img/user_icon.svg';
 import { NavLink } from "react-router-dom";
+import { followAPI } from '../../api/api';
 import './Users.css';
 
 
@@ -13,8 +14,6 @@ function Users(props) {
   for (let i = 1; i <= pagesCount; i++) {
       pages.push(i);
   }
-
-
     return (
       <div>
         <div className='pagination-box'>
@@ -34,7 +33,30 @@ function Users(props) {
               </NavLink>
             </div>
             <div>
-              {user.followed ? <button onClick={() => { props.follow(user.id) }}>UnFollow</button> : <button onClick={() => {props.unFollow(user.id)}}>Follow</button>}
+              {user.followed ? 
+
+              <button disabled = {props.folowingProgress.some(id => id === user.id)} onClick={() => { 
+                props.toggleIsFolowingProgress(true, user.id);
+
+                followAPI.getUnFollow(user.id).then(data => {
+                  if(data.resultCode === 0) {
+                    props.unFollow(user.id);
+                  }
+                  props.toggleIsFolowingProgress(false, user.id)
+                })
+              }}>unFollow</button> : 
+
+              <button disabled = {props.folowingProgress.some(id => id === user.id)} onClick={() => {
+                props.toggleIsFolowingProgress(true, user.id);
+
+                followAPI.getFollow(user.id).then(data => {
+                  if(data.resultCode === 0) {
+                    props.follow(user.id);
+                  }
+                  props.toggleIsFolowingProgress(false, user.id)
+
+                })
+                }}>follow</button>}
             </div>
           </div>
           <div>
