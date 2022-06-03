@@ -1,3 +1,5 @@
+import { usersAPI, followAPI } from '../api/api';
+
 const FOLOW = 'FOLOW';
 const UNFOLOW = 'UNFOLOW';
 const SET_USERS = 'SET_USERS';
@@ -5,6 +7,7 @@ const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_COUNT_PAGE = 'SET_TOTAL_COUNT_PAGE';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
+
 
 let initialState = {
   users: [],
@@ -66,8 +69,8 @@ const usersReducer = (state=initialState, action) => {
   }
 }
 
-export const follow = (userId) => ({type: FOLOW, userId});
-export const unFollow = (userId) => ({type: UNFOLOW, userId});
+export const followSucces = (userId) => ({type: FOLOW, userId});
+export const unFollowSucces = (userId) => ({type: UNFOLOW, userId});
 export const setUsers = (users) => ({type: SET_USERS, users});
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
 export const setTotalCountUsers = (totalCount) => ({type: SET_TOTAL_COUNT_PAGE, totalCount});
@@ -75,6 +78,42 @@ export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isF
 export const toggleIsFolowingProgress = (isFetching, userId) => ({ type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId});
 
 
+export const getUsers = (currentPage, pageSize) => {
+  return (dispath) => {
+    (toggleIsFetching(true));
+    usersAPI.getUsers(currentPage, pageSize).then(data => {
+      dispath(toggleIsFetching(false));
+      dispath(setUsers(data.items));
+      dispath(setTotalCountUsers(data.totalCount));
+    })
+  }
+}
+
+export const unFollow = (userId) => {
+  return (dispath) => {
+    dispath(toggleIsFolowingProgress(true, userId));
+
+    usersAPI.unFollow(userId).then(data => {
+      if(data.resultCode === 0) {
+        dispath(unFollowSucces(userId));
+      }
+      dispath(toggleIsFolowingProgress(false, userId))
+    })
+  }
+}
+
+export const follow = (userId) => {
+  return (dispath) => {
+    dispath(toggleIsFolowingProgress(true, userId));
+
+    usersAPI.follow(userId).then(data => {
+      if(data.resultCode === 0) {
+        dispath(followSucces(userId));
+      }
+      dispath(toggleIsFolowingProgress(false, userId))
+    })
+  }
+}
 
 
 

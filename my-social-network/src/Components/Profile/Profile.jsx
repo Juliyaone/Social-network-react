@@ -5,8 +5,6 @@ import PostAddContainer from './PostAdd/PostAddContainer';
 
 
 const Profile = (props) => {
-  console.log(props.profile);
-
 
   return (
     <>
