@@ -2,7 +2,7 @@ import React from 'react';
 import Users from './Users';
 import PreLoader from '../common/preloader/PreLoader';
 import {connect} from 'react-redux';
-import {follow, unFollow, setCurrentPage, toggleIsFolowingProgress, getUsers} from '../../redux/users-reducer';
+import {follow, unFollow, setCurrentPage, getUsers} from '../../redux/users-reducer';
 
 class UsersContainer extends React.Component {
   
@@ -47,4 +47,4 @@ let mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps,
-  {follow, unFollow, setCurrentPage, toggleIsFolowingProgress, getUsers})(UsersContainer);
+  {follow, unFollow, setCurrentPage, getUsers})(UsersContainer);

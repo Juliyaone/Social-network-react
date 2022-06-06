@@ -1,9 +1,10 @@
 import { createRef } from 'react';
 import DialogItem from './DialogItem/DialogItem';
 import MessageItem from './MessageItem/MessageItem';
+import { Navigate } from 'react-router-dom';
 import './Dialogs.css';
 
-function Dialogs({ messageChangeHandler, sendMessageHandler, newMessageBody, stateMessages, stateDialogs}) {
+function Dialogs({ messageChangeHandler, sendMessageHandler, newMessageBody, stateMessages, stateDialogs, isAuth}) {
 
   let textareaElement = createRef(null);
 
@@ -14,6 +15,10 @@ function Dialogs({ messageChangeHandler, sendMessageHandler, newMessageBody, sta
   const onMessageChange = () => {
     let body = textareaElement.current.value;
     messageChangeHandler(body);
+  }
+
+  if(!isAuth) {
+    return <Navigate to='/login' />
   }
 
   return (

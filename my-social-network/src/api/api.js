@@ -1,5 +1,6 @@
 import * as axios from 'axios'
 
+
 const instance = axios.create({
   withCredentials: true,
   headers: {
@@ -16,6 +17,11 @@ export const usersAPI = {
     headers: {
       "API-KEY": "ecc2d79b-33a1-4445-9958-488e691027b8"
     }})
+    .then(response => { return response.data });
+  },
+
+  getUserProfile(userId) {
+    return instance.get(`profile/${userId}`)
     .then(response => { return response.data });
   },
 

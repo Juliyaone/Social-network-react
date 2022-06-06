@@ -4,6 +4,7 @@ import MypostsContainer from './MyPosts/MypostContainer';
 import PostAddContainer from './PostAdd/PostAddContainer';
 
 
+
 const Profile = (props) => {
 
   return (
