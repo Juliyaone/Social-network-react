@@ -18,7 +18,7 @@ const PostInfo = (props) => {
         <img src={(props.profile.photos.large) ? props.profile.photos.large : userPhoto} width="200px" height="200px" alt='profile-avatar'></img>
       </div>
       <div>{props.profile.aboutMe}</div>
-      <ProfileStatus />
+      <ProfileStatus profile={props.profile} status={props.status} updateUserStatus={props.updateUserStatus}/>
     </>
   )
 }

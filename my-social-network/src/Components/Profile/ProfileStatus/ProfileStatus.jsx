@@ -1,19 +1,39 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 function ProfileStatus(props) {
 
-  const [state, setState] = useState(true);
-  
+  const [toggle, setToggle] = useState(false);
+  const [status, setStatus] = useState(props.status);
 
+  useEffect(() => {
+      setStatus(props.status)
+  }, [props.status]);
+
+  const onChangeStatus = (evt) => {
+    setStatus(evt.currentTarget.value);
+  }
+
+  const onChangeElement = () => {
+    setToggle(false);
+
+    props.updateUserStatus(status);
+  }
+  
   return (
     <>
-    {(state === true) ?
+    {(toggle === false) ?
     <div>
-      <span onDoubleClick={() => setState(prevCount => !prevCount)}>Спан</span>
+      <span onDoubleClick={() =>{setToggle(true)} }> {props.status || "no status yet"}</span>
     </div> : 
     <div>
-      <input onBlur={() => setState(prevCount => !prevCount)} autoFocus={true} value='введите статус' />
+      <input 
+        autoFocus={true}
+        placeholder="Заполни поле статус"
+        onBlur={onChangeElement}
+        onChange={onChangeStatus}
+        value={status}
+      />
     </div>
     }
     </>

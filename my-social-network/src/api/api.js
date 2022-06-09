@@ -21,8 +21,7 @@ export const usersAPI = {
   },
 
   getUserProfile(userId) {
-    return instance.get(`profile/${userId}`)
-    .then(response => { return response.data });
+    return profileAPI.getProfile();
   },
 
   follow(userId) {
@@ -43,12 +42,27 @@ export const usersAPI = {
 
 }
 
+export const profileAPI = {
+  getProfile(userId) {
+    return instance.get(`profile/${userId}`)
+    .then(response => { return response.data });
+  },
+  getStatus(userId) {
+    return instance.get(`profile/status/${userId}`)
+    .then(response => { return response.data });
+  },
+  updateStatus(status) {
+    return instance.put(`profile/status`, {status})
+    .then(response => { return response.data });
+  },
+}
+
+
 
 export const authAPI = {
   me() {
     return instance.get(`auth/me`).then(response => { return response.data; })
   }
 }
-
 
 //перенесли сюда все запросы на сервер

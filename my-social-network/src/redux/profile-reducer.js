@@ -1,8 +1,9 @@
-import { usersAPI } from '../api/api';
+import { profileAPI } from '../api/api';
+
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_STATUS = 'SET_STATUS';
 
 
 let initialState = {
@@ -10,8 +11,8 @@ let initialState = {
     {id: 5, post: 'LALALA', likescount: 0},
     {id: 6, post: 'PUPUPU', likescount: 30},
   ],
-  newPostText: 'Дефолтное значение',
-  profile: null
+  profile: null,
+  status: ""
 }
 
 const profileReducer = (state=initialState, action) => {
@@ -19,38 +20,50 @@ const profileReducer = (state=initialState, action) => {
     case ADD_POST: {
       return { 
         ...state,
-        posts: [ ...state.posts, { id: 5, post: state.newPostText, likescount: 0 }],
-        newPostText: '',
+        posts: [ ...state.posts, { id: 5, post: action.post, likescount: 0 }],
       };
     }
 
-    case UPDATE_NEW_POST_TEXT: {
-      return {
-        ...state,
-        newPostText: action.newText,
-      };
-
-    }
     case SET_USER_PROFILE: {
       return { ...state, profile: action.profile }
     }
+
+    case SET_STATUS: {
+      return { ...state, status: action.status }
+    }
+
       default:
         return { ...state }
   }
 }
 
-export const addPostActionCreater = () => ({type: ADD_POST});
-
-export const updateNewPostTextActionCreater = (text) => 
-  ({type: UPDATE_NEW_POST_TEXT, newText: text})
+export const addPostActionCreater = (post) => ({type: ADD_POST, post});
 
 export const setUserProfile = (profile) => {
   return {type: SET_USER_PROFILE, profile}
 };
 
-export const getProfile = (userId) => (dispath) => {
-  usersAPI.getUserProfile(userId).then(data => {
+export const setUserStatus = (status) => {
+  return {type: SET_STATUS, status}
+};
+
+export const getUserProfile = (userId) => (dispath) => {
+  profileAPI.getProfile(userId).then(data => {
     dispath(setUserProfile(data));
+  })
+}
+
+export const getUserStatus = (userId) => (dispath) => {
+  profileAPI.getStatus(userId).then(data => {
+    dispath(setUserStatus(data));
+  })
+}
+
+export const updateUserStatus = (status) => (dispath) => {
+  profileAPI.updateStatus(status).then(data => {
+    if(data.resultCode === 0) {
+      dispath(setUserStatus(status));
+    }
   })
 }
 

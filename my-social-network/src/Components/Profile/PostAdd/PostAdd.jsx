@@ -1,25 +1,28 @@
 import './PostAdd.css'
-import {createRef} from 'react';
+import {Field, reduxForm} from 'redux-form';
 
-const PostAdd = ({ postChange, addPost, newPostText }) => {
+const PostAddForm = (props) => {
+  return <>
+  <form onSubmit={props.handleSubmit}>
+    <Field name={"post"} component={'textarea'} />
+    <button type='submit'>Добавить</button>
+  </form>
+  </>
+}
 
-  let newPostElement = createRef(null);
+const PostAddFormRedux = reduxForm({form: 'post'})(PostAddForm);
 
-  const onAddPost = () => {
-    addPost();
-  }
 
-  const onPostChange = () => {
-    let text = newPostElement.current.value;
-    postChange(text);
+const PostAdd = (props) => {
+
+  const addNewPost = (values) => {
+    props.addPost(values.post);
   }
 
   return (
     <div>
-      <div>
-        <textarea onChange={onPostChange} ref={newPostElement} value={newPostText}></textarea>
-      </div>
-      <button onClick={onAddPost}>Добавить</button>
+      <h1>Добавь пост</h1>
+      <PostAddFormRedux onSubmit={addNewPost}/>
     </div>
   )
 }

@@ -1,23 +1,26 @@
-import { createRef } from 'react';
 import DialogItem from './DialogItem/DialogItem';
 import MessageItem from './MessageItem/MessageItem';
 import { Navigate } from 'react-router-dom';
+import { Field, reduxForm } from 'redux-form';
 import './Dialogs.css';
 
-function Dialogs({ messageChangeHandler, sendMessageHandler, newMessageBody, stateMessages, stateDialogs, isAuth}) {
+const DialogsForm = (props) => {
+  return <form onSubmit={props.handleSubmit}>
+            <div>
+              <Field name="message" component={"textarea"}/>
+            </div>
+            <button type="submit">Отправить</button>
+          </form>
+}
 
-  let textareaElement = createRef(null);
+const DialogsReduxForm = reduxForm({form: 'message'})(DialogsForm)
 
-  const onSendMessage = () => {
-    sendMessageHandler();
+function Dialogs(props) {
+
+  const addNewMessage = (values) => {
+    props.sendMessageHandler(values.message);
   }
-
-  const onMessageChange = () => {
-    let body = textareaElement.current.value;
-    messageChangeHandler(body);
-  }
-
-  if(!isAuth) {
+  if(!props.isAuth) {
     return <Navigate to='/login' />
   }
 
@@ -25,21 +28,16 @@ function Dialogs({ messageChangeHandler, sendMessageHandler, newMessageBody, sta
       <div className='dialogs-wrapper'>
 
         <ul className='dialog-list'>
-          {stateDialogs.map((dialog) => (<DialogItem key={dialog.id} name={dialog.name} id={dialog.id} /> ))}
+          {props.stateDialogs.map((dialog) => (<DialogItem key={dialog.id} name={dialog.name} id={dialog.id} /> ))}
         </ul>
 
 
         <div>
           <ul className='message-list'>
-            {stateMessages.map((message) => (<MessageItem key={message.id} message={message.message} />))}
+            {props.stateMessages.map((message) => (<MessageItem key={message.id} message={message.message} />))}
           </ul>
 
-          <div>
-            <div>
-              <textarea onChange={onMessageChange} ref={textareaElement} value={newMessageBody}></textarea>
-            </div>
-            <button onClick={onSendMessage}>Отправить</button>
-          </div>
+        <DialogsReduxForm onSubmit={addNewMessage}/>
         </div>
       </div>
   );

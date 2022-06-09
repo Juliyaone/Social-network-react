@@ -7,7 +7,7 @@ import Music from './Components/Music/Music';
 import Settings from './Components/Settings/Settings';
 import UsersContainer from './Components/Users/UsersContainer';
 import HeaderContainer from './Components/Header/HeaderContainer';
-import Login from './Components/Login/Login';
+import Login from './Components/Profile/Login/Login';
 
 function App() { 
 

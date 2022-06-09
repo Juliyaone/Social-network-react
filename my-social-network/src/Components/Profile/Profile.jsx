@@ -9,7 +9,7 @@ const Profile = (props) => {
 
   return (
     <>
-    <PostInfo profile={ props.profile } />
+    <PostInfo profile={props.profile} status={props.status} updateUserStatus={props.updateUserStatus}/>
     <PostAddContainer/>
   
     <div className='content-box'>
