@@ -1,0 +1,13 @@
+.form-control.error {
+  border: 2px solid red;
+}
+
+.form-control.error {
+  color: red;
+}
+
+
+.form-summary-error {
+  border: 2px solid red;
+  color: red;
+}

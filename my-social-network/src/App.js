@@ -8,41 +8,61 @@ import Settings from './Components/Settings/Settings';
 import UsersContainer from './Components/Users/UsersContainer';
 import HeaderContainer from './Components/Header/HeaderContainer';
 import Login from './Components/Profile/Login/Login';
+import React from 'react';
+import withRouter from './Components/hoc/withRouter';
+import { compose } from 'redux';
+import {connect} from 'react-redux';
+import { initializeApp } from './redux/app-reducer';
+import PreLoader from './Components/common/preloader/PreLoader';
 
-function App() { 
+class App extends React.Component { 
 
-  return (
-    <BrowserRouter>
-      <div className="app">
-        <div className="container-app">
-          <header className='header'>
-            <HeaderContainer />
-          </header>
-          <aside className='side-bar'>
-            <Navbar />
-          </aside>
-            <main>
-              <Routes>
-                  <Route path="/"/>
-                  <Route path="/profile" element={<ProfileContainer />}/>
-                  <Route path="/profile/:id" element={<ProfileContainer />}/>
-                  <Route path="/dialogs" element={<DialogsContainer />}/>
-                  <Route path="/users" element={<UsersContainer />} />
-                  <Route path="/news" element={<News />}/>
-                  <Route path="/music" element={<Music />}/>
-                  <Route path="/settings" element={<Settings />}/>
-                  <Route path="/login" element={<Login />}/>
+  componentDidMount() {
+    this.props.initializeApp();
+  }
 
-              </Routes>
-            </main>
-            <footer>
-              {/* <Footer /> */}
-            </footer>
+  render () {
+    if(!this.props.initialized) {
+      <PreLoader/>
+    }
+    return (
+      <BrowserRouter>
+        <div className="app">
+          <div className="container-app">
+            <header className='header'>
+              <HeaderContainer />
+            </header>
+            <aside className='side-bar'>
+              <Navbar />
+            </aside>
+              <main>
+                <Routes>
+                    <Route path="/"/>
+                    <Route path="/profile" element={<ProfileContainer />}/>
+                    <Route path="/profile/:id" element={<ProfileContainer />}/>
+                    <Route path="/dialogs" element={<DialogsContainer />}/>
+                    <Route path="/users" element={<UsersContainer />} />
+                    <Route path="/news" element={<News />}/>
+                    <Route path="/music" element={<Music />}/>
+                    <Route path="/settings" element={<Settings />}/>
+                    <Route path="/login" element={<Login />}/>
+
+                </Routes>
+              </main>
+              <footer>
+                {/* <Footer /> */}
+              </footer>
+          </div>
         </div>
-      </div>
-    </BrowserRouter>
-  );
+      </BrowserRouter>
+    );
+  }
 }
 
-export default App;
+
+const mapStateToProps = (state) => ({
+  initialized: state.app.initialized
+})
+
+export default compose( withRouter, connect(mapStateToProps, {initializeApp}))(App);
 
