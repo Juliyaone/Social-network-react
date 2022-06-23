@@ -2,8 +2,22 @@ import React from 'react';
 import Users from './Users';
 import PreLoader from '../common/preloader/PreLoader';
 import {connect} from 'react-redux';
-import {follow, unFollow, setCurrentPage, getUsers} from '../../redux/users-reducer';
+import {follow, unFollow, setCurrentPage, requestUsers} from '../../redux/users-reducer';
 import {compose} from 'redux';
+
+import {getUsers} from '../../redux/users-selectors';
+
+import {getPageSize} from '../../redux/users-selectors';
+
+import {getTotalCount} from '../../redux/users-selectors';
+
+import {getCurrentPage} from '../../redux/users-selectors';
+
+import {getIsFetching} from '../../redux/users-selectors';
+
+import {getFolowingProgress} from '../../redux/users-selectors';
+
+
 class UsersContainer extends React.Component {
   
   constructor(props) {
@@ -11,11 +25,11 @@ class UsersContainer extends React.Component {
   }
 
   componentDidMount = () => {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    this.props.requestUsers(this.props.currentPage, this.props.pageSize);
   }
 
   onPageChanged = (pageNumber) => {
-    this.props.getUsers(pageNumber, this.props.pageSize);
+    this.props.requestUsers(pageNumber, this.props.pageSize);
   }
 
   render () {
@@ -36,15 +50,15 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    totalCount: state.usersPage.totalCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    folowingProgress: state.usersPage.folowingProgress
+    users: getUsers(state),
+    pageSize: getPageSize(state),
+    totalCount: getTotalCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    folowingProgress: getFolowingProgress(state)
   }
 }
 
 export default compose (
-  connect(mapStateToProps, {follow, unFollow, setCurrentPage, getUsers})
+  connect(mapStateToProps, {follow, unFollow, setCurrentPage, requestUsers})
 )(UsersContainer)

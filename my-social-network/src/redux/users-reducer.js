@@ -78,11 +78,13 @@ export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isF
 export const toggleIsFolowingProgress = (isFetching, userId) => ({ type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId});
 
 
-export const getUsers = (currentPage, pageSize) => {
+export const requestUsers = (currentPage, pageSize) => {
   return (dispath) => {
     (toggleIsFetching(true));
     usersAPI.getUsers(currentPage, pageSize).then(data => {
       dispath(toggleIsFetching(false));
+      dispath(setCurrentPage(currentPage));
+
       dispath(setUsers(data.items));
       dispath(setTotalCountUsers(data.totalCount));
     })
