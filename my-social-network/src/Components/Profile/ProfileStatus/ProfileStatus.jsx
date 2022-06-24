@@ -6,7 +6,9 @@ function ProfileStatus(props) {
   const [toggle, setToggle] = useState(false);
   const [status, setStatus] = useState(props.status);
 
-  useEffect(() => {
+
+
+useEffect(() => {
       setStatus(props.status)
   }, [props.status]);
 
