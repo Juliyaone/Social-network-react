@@ -5,9 +5,9 @@ import {Textarea} from '../../common/FormsControl/FormsControl';
 
 const maxLength10 = maxLengthCreator(10);
 
-const PostAddForm = (props) => {
+const PostAddForm = ({handleSubmit}) => {
   return <>
-  <form onSubmit={props.handleSubmit}>
+  <form onSubmit={handleSubmit}>
     <Field name={"post"} component={Textarea}  validate={[required, maxLength10]} placeholder={"Post"}/>
     <button type='submit'>Добавить</button>
   </form>
@@ -17,10 +17,10 @@ const PostAddForm = (props) => {
 const PostAddFormRedux = reduxForm({form: 'post'})(PostAddForm);
 
 
-const PostAdd = (props) => {
+const PostAdd = ({addPost}) => {
 
   const addNewPost = (values) => {
-    props.addPost(values.post);
+    addPost(values.post);
   }
 
   return (

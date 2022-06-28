@@ -1,0 +1,19 @@
+.pagination-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.active-page {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.number-page {
+  cursor: pointer;
+  margin-right: 30px;
+}
+
+.pagination-box {
+  display: flex;
+  flex-wrap: wrap;
+}

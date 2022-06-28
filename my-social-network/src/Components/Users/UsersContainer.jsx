@@ -5,18 +5,7 @@ import {connect} from 'react-redux';
 import {follow, unFollow, setCurrentPage, requestUsers} from '../../redux/users-reducer';
 import {compose} from 'redux';
 
-import {getUsers} from '../../redux/users-selectors';
-
-import {getPageSize} from '../../redux/users-selectors';
-
-import {getTotalCount} from '../../redux/users-selectors';
-
-import {getCurrentPage} from '../../redux/users-selectors';
-
-import {getIsFetching} from '../../redux/users-selectors';
-
-import {getFolowingProgress} from '../../redux/users-selectors';
-
+import {getFolowingProgress, getIsFetching, getCurrentPage, getTotalCount, getPageSize, getUsers} from '../../redux/users-selectors';
 
 class UsersContainer extends React.Component {
   
@@ -25,11 +14,13 @@ class UsersContainer extends React.Component {
   }
 
   componentDidMount = () => {
-    this.props.requestUsers(this.props.currentPage, this.props.pageSize);
+    const {currentPage, pageSize} = this.props;
+    this.props.requestUsers(currentPage, pageSize);
   }
 
   onPageChanged = (pageNumber) => {
-    this.props.requestUsers(pageNumber, this.props.pageSize);
+    const {pageSize} =  this.props;
+    this.props.requestUsers(pageNumber, pageSize);
   }
 
   render () {
@@ -50,7 +41,6 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
   return {
-    // users: getUsers(state),
     users: getUsers(state),
     pageSize: getPageSize(state),
     totalCount: getTotalCount(state),

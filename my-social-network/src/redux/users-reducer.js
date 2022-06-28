@@ -79,41 +79,37 @@ export const toggleIsFolowingProgress = (isFetching, userId) => ({ type: TOGGLE_
 
 
 export const requestUsers = (currentPage, pageSize) => {
-  return (dispath) => {
-    (toggleIsFetching(true));
-    usersAPI.getUsers(currentPage, pageSize).then(data => {
-      dispath(toggleIsFetching(false));
-      dispath(setCurrentPage(currentPage));
+  return async (dispath) => {
 
-      dispath(setUsers(data.items));
-      dispath(setTotalCountUsers(data.totalCount));
-    })
+    dispath(toggleIsFetching(true));
+    dispath(setCurrentPage(currentPage));
+
+    let response = await usersAPI.getUsers(currentPage, pageSize);
+
+    dispath(toggleIsFetching(false));
+    dispath(setUsers(response.items));
+    dispath(setTotalCountUsers(response.totalCount));
   }
 }
 
-export const unFollow = (userId) => {
-  return (dispath) => {
-    dispath(toggleIsFolowingProgress(true, userId));
+const followUnfollowFlow = async (dispath, userId, apiMethod, actionCreator) => {
+  dispath(toggleIsFolowingProgress(true, userId));
+  let response = await apiMethod(userId);
+  if(response.resultCode === 0) {
+    dispath(actionCreator(userId));
+  }
+  dispath(toggleIsFolowingProgress(false, userId));
+}
 
-    usersAPI.unFollow(userId).then(data => {
-      if(data.resultCode === 0) {
-        dispath(unFollowSucces(userId));
-      }
-      dispath(toggleIsFolowingProgress(false, userId))
-    })
+export const unFollow = (userId) => {
+  return async (dispath) => {
+    followUnfollowFlow(dispath, userId, usersAPI.unFollow.bind(usersAPI), unFollowSucces);
   }
 }
 
 export const follow = (userId) => {
-  return (dispath) => {
-    dispath(toggleIsFolowingProgress(true, userId));
-
-    usersAPI.follow(userId).then(data => {
-      if(data.resultCode === 0) {
-        dispath(followSucces(userId));
-      }
-      dispath(toggleIsFolowingProgress(false, userId))
-    })
+  return async (dispath) => {
+    followUnfollowFlow(dispath, userId, usersAPI.follow.bind(usersAPI), followSucces);
   }
 }
 

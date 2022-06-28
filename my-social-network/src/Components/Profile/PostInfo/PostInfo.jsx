@@ -4,21 +4,19 @@ import ProfileStatus from '../ProfileStatus/ProfileStatus';
 
 import './PostInfo.css'
 
-const PostInfo = (props) => {
+const PostInfo = ({profile, status, updateUserStatus}) => {
 
-  // console.log(profile);
-
-  if(props.profile == null) {
+  if(profile == null) {
     return <PreLoader />
   }
 
   return (
     <>
       <div>
-        <img src={(props.profile.photos.large) ? props.profile.photos.large : userPhoto} width="200px" height="200px" alt='profile-avatar'></img>
+        <img src={(profile.photos.large) ? profile.photos.large : userPhoto} width="200px" height="200px" alt='profile-avatar'></img>
       </div>
-      <div>{props.profile.aboutMe}</div>
-      <ProfileStatus profile={props.profile} status={props.status} updateUserStatus={props.updateUserStatus}/>
+      <div>{profile.aboutMe}</div>
+      <ProfileStatus profile={profile} status={status} updateUserStatus={updateUserStatus}/>
     </>
   )
 }

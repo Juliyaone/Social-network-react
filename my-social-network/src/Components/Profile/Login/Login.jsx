@@ -9,9 +9,9 @@ import './../../common/FormsControl/FormsControl.css';
 
 
 
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit, error}) => {
   return <>
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <div>
         <Field placeholder="Email" name={"email"} validate={[required]} component={Input}/>
       </div>
@@ -21,8 +21,8 @@ const LoginForm = (props) => {
       <div>
         <Field type="checkbox" name={"remeberMe"} component={Input}/>Remeber me
       </div>
-      { props.error && <div className='form-summary-error'>
-        {props.error}
+      { error && <div className='form-summary-error'>
+        {error}
       </div>}
 
       <div>
