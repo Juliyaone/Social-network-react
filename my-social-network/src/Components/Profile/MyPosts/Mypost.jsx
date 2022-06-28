@@ -10,7 +10,7 @@ const Myposts = (props) => {
         <h3>Posts</h3>
         <ul className='post-list'>
           {props.posts.map((item) => 
-          (<Post key={item.id} post={item.post} likescount={item.likescount}/> ))}
+          (<Post key={item.id} post={item.post} likescount={item.likescount}/> )).reverse()}
         </ul>
       </div>
     </div>
