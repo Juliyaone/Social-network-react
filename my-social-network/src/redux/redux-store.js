@@ -1,4 +1,4 @@
-import { applyMiddleware, combineReducers, legacy_createStore as createStore } from "redux";
+import { applyMiddleware, combineReducers, legacy_createStore as createStore, compose } from "redux";
 import { reducer as formReducer } from 'redux-form'
 
 import profileReducer from '../redux/profile-reducer';
@@ -21,8 +21,13 @@ let reducers = combineReducers({
   app: appReducer
 });
 
-let store = createStore(reducers, applyMiddleware(thunkMiddleWare));
+// let store = createStore(reducers, applyMiddleware(thunkMiddleWare));   // без браузерного расширения redux Devtools
 
-window.store = store;
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // c браузерным расширением redux Devtools
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleWare)));
+
+
+// window.store = store;
 
 export default store;

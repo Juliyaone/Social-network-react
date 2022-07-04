@@ -4,12 +4,12 @@ import User from './User';
 import './Users.css';
 
 
-function Users({ users, onPageChanged, totalCount, pageSize, currentPage, folowingProgress, unFollow, follow, ...props }) {
-
+function Users({ users, onPageChanged, totalItemsCount, pageSize, currentPage, folowingProgress, unFollow, follow, ...props }) {
+// console.log(totalItemsCount, pageSize);
     return (
       <>
       <div>
-        <Paginator onPageChanged={onPageChanged} totalCount={totalCount} pageSize={pageSize} currentPage={currentPage}/>
+        <Paginator onPageChanged={onPageChanged} totalItemsCount={totalItemsCount} pageSize={pageSize} currentPage={currentPage}/>
       </div>
 
         {users.map((user) => <User folowingProgress={folowingProgress} unFollow={unFollow} follow={follow} user={user} key={user.id}/> )}
