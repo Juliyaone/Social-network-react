@@ -1,7 +1,9 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Suspense } from 'react';
+
+
 import Navbar from './Components/Navbar/Navbar';
-import ProfileContainer from './Components/Profile/ProfileContainer';
-import DialogsContainer from './Components/Dialogs/DialogsContainer';
+
 import News from './Components/News/News';
 import Music from './Components/Music/Music';
 import Settings from './Components/Settings/Settings';
@@ -14,6 +16,11 @@ import { compose } from 'redux';
 import {connect} from 'react-redux';
 import { initializeApp } from './redux/app-reducer';
 import PreLoader from './Components/common/preloader/PreLoader';
+
+const DialogsContainer = React.lazy(() => import('./Components/Dialogs/DialogsContainer'));
+const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
+
+
 
 class App extends React.Component { 
 
@@ -36,6 +43,7 @@ class App extends React.Component {
               <Navbar />
             </aside>
               <main>
+              <Suspense fallback={<div><PreLoader /></div>}>
                 <Routes>
                     <Route path="/"/>
                     <Route path="/profile" element={<ProfileContainer />}/>
@@ -46,8 +54,9 @@ class App extends React.Component {
                     <Route path="/music" element={<Music />}/>
                     <Route path="/settings" element={<Settings />}/>
                     <Route path="/login" element={<Login />}/>
-
                 </Routes>
+                </Suspense>
+
               </main>
               <footer>
                 {/* <Footer /> */}
