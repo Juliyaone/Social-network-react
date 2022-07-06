@@ -5,7 +5,6 @@ import './Users.css';
 
 
 function Users({ users, onPageChanged, totalItemsCount, pageSize, currentPage, folowingProgress, unFollow, follow, ...props }) {
-// console.log(totalItemsCount, pageSize);
     return (
       <>
       <div>

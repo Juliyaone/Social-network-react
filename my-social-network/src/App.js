@@ -1,4 +1,4 @@
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, HashRouter } from 'react-router-dom';
 import { Suspense } from 'react';
 
 
@@ -33,7 +33,7 @@ class App extends React.Component {
       <PreLoader/>
     }
     return (
-      <BrowserRouter>
+      <HashRouter>
         <div className="app">
           <div className="container-app">
             <header className='header'>
@@ -43,7 +43,7 @@ class App extends React.Component {
               <Navbar />
             </aside>
               <main>
-              <Suspense fallback={<div><PreLoader /></div>}>
+              <Suspense fallback={<div><PreLoader isFetching={this.props.isFetching}/></div>}>
                 <Routes>
                     <Route path="/"/>
                     <Route path="/profile" element={<ProfileContainer />}/>
@@ -63,15 +63,18 @@ class App extends React.Component {
               </footer>
           </div>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }
 
 
 const mapStateToProps = (state) => ({
-  initialized: state.app.initialized
+  initialized: state.app.initialized,
+  isFetching: state.usersPage.isFetching
 })
+
+
 
 export default compose( withRouter, connect(mapStateToProps, {initializeApp}))(App);
 
