@@ -13,7 +13,7 @@ class ProfileContainer extends React.Component {
     super(props);
   }
 
-  componentDidMount () {
+  refreshProfile () {
     let userId = this.props.router.params.id;
     if(!userId) {
       userId = this.props.autorizedUserId;
@@ -21,6 +21,15 @@ class ProfileContainer extends React.Component {
 
     this.props.getUserProfile(userId);
     this.props.getUserStatus(userId);
+  }
+
+  componentDidMount () {
+    this.refreshProfile();
+  }
+  componentDidUpdate (prevProps, prevState, snapshot) {
+    if(this.props.router.params.id !== this.prevProps.router.params.id) {
+      this.refreshProfile();
+    }
   }
 
   render () {
