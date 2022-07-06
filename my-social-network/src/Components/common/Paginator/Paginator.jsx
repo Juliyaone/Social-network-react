@@ -5,7 +5,6 @@ import './Paginator.css';
 function Paginator({totalItemsCount, pageSize, currentPage, onPageChanged, portionSize=10}) {
 
   let pagesCount = Math.ceil(totalItemsCount / pageSize);
-console.log(totalItemsCount, pagesCount);
   let pages = [];
 
   for (let i = 1; i <= pagesCount; i++) {
