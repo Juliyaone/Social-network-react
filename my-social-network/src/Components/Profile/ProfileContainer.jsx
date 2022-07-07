@@ -26,6 +26,7 @@ class ProfileContainer extends React.Component {
   componentDidMount () {
     this.refreshProfile();
   }
+
   componentDidUpdate (prevProps, prevState, snapshot) {
     if(this.props.router.params.id !== this.prevProps.router.params.id) {
       this.refreshProfile();

@@ -1,4 +1,4 @@
-import { Routes, Route, HashRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { Suspense } from 'react';
 
 
@@ -33,7 +33,7 @@ class App extends React.Component {
       <PreLoader/>
     }
     return (
-      <HashRouter>
+      <BrowserRouter>
         <div className="app">
           <div className="container-app">
             <header className='header'>
@@ -63,7 +63,7 @@ class App extends React.Component {
               </footer>
           </div>
         </div>
-      </HashRouter>
+      </BrowserRouter>
     );
   }
 }
